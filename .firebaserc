@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ionic-crud-ubaldo": {
+      "hosting": {
+        "app": [
+          "ionic-crud-ubaldo"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ionic-crud-ubaldo"
+  }
+}
