@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent,IonItem, IonLabel, IonList } from '@ionic/angular/standalone';
 import { User } from '../common/models/users.models';
+import { FirestoreService } from '../common/services/firestore.service';
 
 @Component({
   selector: 'app-home',
@@ -10,20 +11,21 @@ import { User } from '../common/models/users.models';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent,IonList,IonItem,IonLabel],
 })
 export class HomePage {
+
   user: User[] = [];
-  constructor() {
+
+  constructor(private firestoreService : FirestoreService) {
+
     this.loadusers();
   }
 
-   public loadusers(){
-    const user={
-      nombre:'uba',
-      edad:10
-    }
-    const user1={
-      nombre:'bet',
-      edad:10
-    }
-    this.user.push(user,user1);
+  public loadusers(){
+    this.firestoreService.getCollectionChanges<User>('Usuarios').subscribe(data => {
+      if (data){
+        this.user = data
+      }
+
+    });
   }
+  
 }
